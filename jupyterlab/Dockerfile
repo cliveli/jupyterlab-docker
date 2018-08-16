@@ -35,6 +35,9 @@ ENV LANG=C.UTF-8
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
+# Install javascript kernel
+RUN npm i -g ijavascript && ijsinstall
+
 # Expose Jupyter port & cmd
 EXPOSE 8888
 RUN mkdir -p /opt/app/data
