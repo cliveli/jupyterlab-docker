@@ -47,12 +47,14 @@ RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/
 #  rm -rf /var/cache/apk/*
 
 ENV LANG=C.UTF-8
+ENV HOME /root
+ENV SERVER_PORT 8888
 
 # Install Python Packages & Requirements (Done near end to avoid invalidating cache)
 # COPY requirements.txt requirements.txt
 # RUN pip install -r requirements.txt
 
 # Expose Jupyter port & cmd
-EXPOSE 8888
-RUN mkdir -p /opt/app/data
-CMD jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=/opt/app/data --allow-root
+EXPOSE $SERVER_PORT
+# RUN mkdir -p /opt/app/data
+CMD jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=$HOME --allow-root
