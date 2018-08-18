@@ -14,9 +14,9 @@ RUN apk add --update-cache --virtual=.build-dependencies alpine-sdk \
     libpng-dev \
     freetype-dev \
     libxml2-dev \
-    libxslt-dev
-# TODO append git, npm
-RUN apk add --update git npm
+    libxslt-dev \
+    git \
+    npm
 
 # Install Jupyter
 RUN pip install jupyter
