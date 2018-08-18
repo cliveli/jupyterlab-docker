@@ -2,7 +2,8 @@ FROM python:alpine
 
 # Install required packages
 RUN apk add --update --virtual=.build-dependencies alpine-sdk nodejs ca-certificates musl-dev gcc python-dev make cmake g++ gfortran libpng-dev freetype-dev libxml2-dev libxslt-dev
-RUN apk add --update git
+RUN apk add --update git npm
+RUN npm --unsafe-perm i -g ijavascript && ijsinstall
 
 # Install Jupyter
 RUN pip install jupyter
@@ -34,10 +35,6 @@ ENV LANG=C.UTF-8
 # Install Python Packages & Requirements (Done near end to avoid invalidating cache)
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-
-# Install javascript kernel
-RUN apk add --update npm
-RUN npm --unsafe-perm i -g ijavascript && ijsinstall
 
 # Expose Jupyter port & cmd
 EXPOSE 8888
