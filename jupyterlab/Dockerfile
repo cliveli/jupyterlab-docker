@@ -1,7 +1,21 @@
 FROM python:alpine
 
 # Install required packages
-RUN apk add --update --virtual=.build-dependencies alpine-sdk nodejs ca-certificates musl-dev gcc python-dev make cmake g++ gfortran libpng-dev freetype-dev libxml2-dev libxslt-dev
+RUN apk add --update-cache --virtual=.build-dependencies alpine-sdk \
+    nodejs \
+    ca-certificates \
+    musl-dev \
+    gcc \
+    python-dev  \
+    make \
+    cmake \
+    g++ \
+    gfortran \
+    libpng-dev \
+    freetype-dev \
+    libxml2-dev \
+    libxslt-dev
+# TODO append git, npm
 RUN apk add --update git npm
 
 # Install Jupyter
@@ -12,6 +26,7 @@ RUN jupyter nbextension enable --py widgetsnbextension
 # Install JupyterLab
 RUN pip install jupyterlab && jupyter serverextension enable --py jupyterlab
 
+# Install javascript kernel
 RUN npm --unsafe-perm i -g ijavascript && ijsinstall
 
 # Additional packages for compatability (glibc)
