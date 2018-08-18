@@ -15,7 +15,6 @@ RUN apk add --update-cache --virtual=.build-dependencies alpine-sdk \
     # freetype-dev \
 # libxml2-dev \
 # libxslt-dev \
-    git \
     npm
 
 # Install Jupyter Widgets
@@ -27,7 +26,7 @@ RUN apk add --update-cache --virtual=.build-dependencies alpine-sdk \
 RUN pip install jupyterlab && jupyter serverextension enable --py jupyterlab
 
 # Install javascript kernel
-RUN npm --unsafe-perm i -g ijavascript && ijsinstall
+RUN npm --unsafe-perm i -g ijavascript && ijsinstall --install=global 
 
 # Additional packages for compatability (glibc)
 # RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub && \
@@ -57,4 +56,4 @@ ENV SERVER_PORT 8888
 # Expose Jupyter port & cmd
 EXPOSE $SERVER_PORT
 # RUN mkdir -p /opt/app/data
-CMD jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=$HOME --allow-root
+CMD jupyter lab --ip=* --port=$SERVER_PORT --no-browser --notebook-dir=$HOME --allow-root
