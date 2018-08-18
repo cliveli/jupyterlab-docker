@@ -1,9 +1,13 @@
+FROM mhart/alpine-node:latest AS build-env
+
 FROM python:alpine
+
+ENV NODE_PATH /usr/bin/node
+COPY --from=build-env $NODE_PATH $NODE_PATH
 
 # Install required packages
 RUN apk add --update-cache --virtual=.build-dependencies alpine-sdk \
-    nodejs \
-    python-dev  \
+    python-dev \
     npm
 
 # Install Jupyter Widgets
