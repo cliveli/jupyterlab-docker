@@ -3,8 +3,8 @@ FROM node:10-alpine
 # Install required packages
 RUN apk add --update-cache --virtual=.build-dependencies alpine-sdk \
     python-dev \
-    py-pip
-    # python3
+    py-pip \
+    python3-dev
 
 # Install Jupyter Widgets
 # RUN pip install jupyter
@@ -12,12 +12,20 @@ RUN apk add --update-cache --virtual=.build-dependencies alpine-sdk \
 # RUN jupyter nbextension enable --py widgetsnbextension
 
 # Install JupyterLab
-RUN pip install jupyterlab && jupyter serverextension enable --py jupyterlab
+# RUN python3 -m ensurepip && \
+#     python3 -m pip install jupyterlab && \
+#     jupyter serverextension enable --py jupyterlab
+RUN pip install jupyterlab && \
+    jupyter serverextension enable --py jupyterlab
+
 
 # TODO try pip3
 # https://github.com/jupyterlab/jupyterlab#pip
 # OR https://hub.docker.com/r/frolvlad/alpine-python3/~/dockerfile/
 # apk add python3 && python3 -m ensurepip
+
+# TODO multiple python kernels
+# https://blog.csdn.net/xingyuzhe/article/details/79490687
 
 # Install javascript kernel
 RUN npm --unsafe-perm i -g ijavascript && ijsinstall --install=global
