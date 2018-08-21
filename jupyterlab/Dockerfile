@@ -27,7 +27,12 @@ RUN pip install jupyterlab
 RUN npm --unsafe-perm i -g ijavascript && ijsinstall --install=global
 
 
-RUN apk add python3-dev && python3 -m pip install --upgrade pip --force-reinstall
+# RUN apk add python3-dev && python3 -m pip install --upgrade pip --force-reinstall
+RUN apk add python3-dev && python3 -m pip install --upgrade pip && \
+    python3 -m pip install ipykernel && \
+    python3 -m ipykernel install --user
+# https://ipython.readthedocs.io/en/stable/install/kernel_install.html
+
 
 # WIP TODO try install jupyterlab w/ py3 without damage jupyterlab w/ py2
 # multistage build? -> is kernel installed by COPYING FILES? or CONFIGS?
