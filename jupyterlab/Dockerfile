@@ -2,19 +2,33 @@ FROM node:10-alpine
 
 RUN apk add --update-cache --virtual=.build-dependencies alpine-sdk \
     python-dev \
-    py-pip
+    py-pip \
+    python3-dev
 
-RUN python2 -m pip install --upgrade pip && \
-    python2 -m pip install jupyterlab && \
-    jupyter serverextension enable --py jupyterlab
+RUN python3 -m pip install --upgrade pip && \
+    python2 -m pip install --upgrade pip
+
+RUN python3 -m pip install jupyterlab && \
+    jupyter serverextension enable --py jupyterlab && \
+    python2 -m pip install ipykernel && \
+    python2 -m ipykernel install --user
 
 RUN npm --unsafe-perm i -g ijavascript && \
     ijsinstall --install=global
 
-RUN apk add python3-dev && \
-    python3 -m pip install --upgrade pip --force-reinstall && \
-    python3 -m pip install ipykernel && \
-    python3 -m ipykernel install --user
+# ===
+
+# RUN python2 -m pip install --upgrade pip && \
+    # python2 -m pip install jupyterlab && \
+    # jupyter serverextension enable --py jupyterlab
+
+# RUN npm --unsafe-perm i -g ijavascript && \
+#     ijsinstall --install=global
+
+# RUN apk add python3-dev && \
+    # python3 -m pip install --upgrade pip --force-reinstall && \
+    # python3 -m pip install ipykernel && \
+    # python3 -m ipykernel install --user
 
 ENV LANG=C.UTF-8
 ENV HOME /root
