@@ -16,7 +16,7 @@ RUN pip2 install --upgrade pip
 
 # Install JupyterLab
 # RUN pip install jupyterlab && jupyter serverextension enable --py jupyterlab
-RUN pip install jupyterlab
+RUN pip2 install jupyterlab && jupyter serverextension enable --py jupyterlab
 
 # TODO try pip3
 # https://github.com/jupyterlab/jupyterlab#pip
@@ -28,7 +28,7 @@ RUN npm --unsafe-perm i -g ijavascript && ijsinstall --install=global
 
 
 # RUN apk add python3-dev && python3 -m pip install --upgrade pip --force-reinstall
-RUN apk add python3-dev && python3 -m pip install --upgrade pip && \
+RUN apk add python3-dev && python3 -m pip install --upgrade pip --force-reinstall && \
     python3 -m pip install ipykernel && \
     python3 -m ipykernel install --user
 # https://ipython.readthedocs.io/en/stable/install/kernel_install.html
