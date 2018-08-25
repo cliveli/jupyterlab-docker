@@ -1,6 +1,9 @@
-node_modules
 .DS_Store
 
-# jupyter
+.git
+.gitignore
+
+node_modules
+
 .ipynb_checkpoints
 .local
